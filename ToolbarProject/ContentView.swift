@@ -8,14 +8,33 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var isPresenting: Bool = false
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationView {
+            Text("Initial View")
+            .toolbar { // a toolbar wraps views just like a VStack or NavigationView.
+                // views go here
+                ToolbarItem(placement: .navigationBarLeading) {
+                    // Buttons go here
+                    Button {
+                        isPresenting = true
+                    } label: {
+                        Image(systemName: "gear")
+                    }
+                }
+            }
+            .sheet(isPresented: $isPresenting) {
+                // view to be displayed
+                NavigationView {
+                    Text("Stettings Page")
+                        .toolbar {
+                            ToolbarItem {
+                                Button("Save") {}
+                            }
+                        }
+                }
+            }
         }
-        .padding()
     }
 }
 
